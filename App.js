@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBar from "./components/TabBar";
 import CardScreen from "./screens/CardScreen";
 import AccountScreen from "./screens/AccountScreen";
+import MyContacts from "./components/MyContacts";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +43,7 @@ export default function App() {
         />
         <Tab.Screen
           name="More"
-          component={CardScreen}
+          component={MyContacts}
           options={{
             headerShown: false,
           }}

@@ -7,7 +7,7 @@ export default function Card({ text, isNew, icon }) {
         className="flex items-center justify-center bg-white w-40 h-28 rounded-md mt-5 mx-1 relative"
         style={styles.elevation}
       >
-        <View className="items-center">
+        <View className="items-center w-3/4">
           {icon}
           <Text className="font-bold text-center mt-2">{text}</Text>
         </View>

@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import {
   FontAwesome,
   Feather,
@@ -9,11 +9,31 @@ import {
 
 export default function AccountScreen() {
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-slate-100">
       <View className="mt-12 mx-6">
         <View className="flex-row justify-between items-center">
           <Text className="font-bold text-xl">Accounts</Text>
           <Text className="text-purple-900">Add a new account</Text>
+        </View>
+
+        <View
+          className="w-72 h-44 bg-purple-900  mt-10 rounded-lg mr-auto ml-auto relative"
+          style={styles.cardElevation}
+        >
+          <View className="absolute top-5 left-5 flex-row">
+            <Text className="text-white text-5xl font-bold absolute ">stc</Text>
+            <Text className="text-green-700 top-5 left-12 font-bold text-2xl">
+              pay
+            </Text>
+          </View>
+
+          <View className="top-5 right-5 absolute">
+            <AntDesign name="checkcircle" size={24} color="green" />
+          </View>
+
+          <Text className="text-white absolute bottom-5 right-5 font-medium">
+            MAIN ACCOUNT
+          </Text>
         </View>
 
         <View
@@ -26,7 +46,7 @@ export default function AccountScreen() {
             </Text>
           </View>
 
-          <View className="flex-row flex-wrap gap-x-4 gap-y-4 justify-evenly">
+          <View className="flex-row flex-wrap gap-x-3 justify-evenly">
             <TouchableOpacity>
               <View className="items-center justify-center mt-10">
                 <View className="p-4 bg-slate-100 rounded-2xl">
@@ -83,6 +103,10 @@ export default function AccountScreen() {
 const styles = StyleSheet.create({
   elevation: {
     elevation: 10,
+    shadowColor: "#171717",
+  },
+  cardElevation: {
+    elevation: 15,
     shadowColor: "#171717",
   },
 });

@@ -81,6 +81,7 @@ export default function TabBar({ state, descriptors, navigation }) {
 
         return (
           <TouchableOpacity
+            key={index}
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
