@@ -85,7 +85,7 @@ export default function TabBar({ state, descriptors, navigation }) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            className="flex justify-center items-center"
+            className="flex justify-center items-center px-4"
           >
             {icon}
             <Text
