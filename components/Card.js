@@ -1,10 +1,18 @@
-import { View, Text, TouchableNativeFeedback, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableNativeFeedback,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+
+const dimensions = Dimensions.get("screen");
 
 export default function Card({ text, isNew, icon, onPress }) {
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View
-        className="flex items-center justify-center bg-white w-40 h-28 rounded-md mt-5 mx-1 relative"
+        className="flex items-center justify-center bg-white h-28 w-40 m-2 rounded-md relative"
         style={styles.elevation}
       >
         <View className="items-center w-3/4">

@@ -15,12 +15,17 @@ function ScreensWithTabNav() {
   return (
     <>
       <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
-        <Tab.Screen name="Home" component={HomeScreen} />
-
-        <Tab.Screen name="Accounts" component={AccountScreen} />
-        <Tab.Screen name="Cards" component={CardScreen} />
-        <Tab.Screen name="Stores" component={CardScreen} />
-        <Tab.Screen name="More" component={CardScreen} />
+        <Tab.Group
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Accounts" component={AccountScreen} />
+          <Tab.Screen name="Cards" component={CardScreen} />
+          <Tab.Screen name="Stores" component={CardScreen} />
+          <Tab.Screen name="More" component={CardScreen} />
+        </Tab.Group>
       </Tab.Navigator>
     </>
   );
@@ -30,7 +35,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomeTab" component={ScreensWithTabNav} />
+        <Stack.Screen
+          name="HomeTab"
+          component={ScreensWithTabNav}
+          options={{
+            headerShown: false,
+          }}
+        />
 
         <Stack.Group screenOptions={{ presentation: "modal" }}>
           <Stack.Screen name="Transfer to contact" component={MyContacts} />
