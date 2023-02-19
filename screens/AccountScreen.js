@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import {
   FontAwesome,
   Feather,
@@ -36,10 +36,7 @@ export default function AccountScreen() {
           </Text>
         </View>
 
-        <View
-          className="bg-white w-100 h-100 rounded-md mt-10"
-          style={styles.elevation}
-        >
+        <View className="bg-white w-100 h-100 rounded-md mt-10">
           <View>
             <Text className="font-bold text-lg px-4 py-4 border-b-2 border-gray-100">
               Quick actions for this account

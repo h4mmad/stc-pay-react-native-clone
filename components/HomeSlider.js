@@ -16,8 +16,9 @@ import {
   Animated,
   useWindowDimensions,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function HomeSlider() {
+export default function HomeSlider({ navigation }) {
   return (
     <>
       <ScrollView
@@ -37,6 +38,7 @@ export default function HomeSlider() {
               text="Transfer to contact"
               icon={<AntDesign name="contacts" size={32} color="purple" />}
               isNew={false}
+              onPress={() => navigation.navigate("Transfer to contact")}
             />
           </View>
 

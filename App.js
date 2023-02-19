@@ -1,4 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "./screens/HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,47 +9,33 @@ import AccountScreen from "./screens/AccountScreen";
 import MyContacts from "./components/MyContacts";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function ScreensWithTabNav() {
+  return (
+    <>
+      <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
+        <Tab.Screen name="Home" component={HomeScreen} />
+
+        <Tab.Screen name="Accounts" component={AccountScreen} />
+        <Tab.Screen name="Cards" component={CardScreen} />
+        <Tab.Screen name="Stores" component={CardScreen} />
+        <Tab.Screen name="More" component={CardScreen} />
+      </Tab.Navigator>
+    </>
+  );
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="Accounts"
-          component={AccountScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="Cards"
-          component={CardScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="Stores"
-          component={CardScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Tab.Screen
-          name="More"
-          component={MyContacts}
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="HomeTab" component={ScreensWithTabNav} />
+
+        <Stack.Group screenOptions={{ presentation: "modal" }}>
+          <Stack.Screen name="Transfer to contact" component={MyContacts} />
+        </Stack.Group>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

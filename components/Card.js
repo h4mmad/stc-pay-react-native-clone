@@ -1,8 +1,8 @@
 import { View, Text, TouchableNativeFeedback, StyleSheet } from "react-native";
 
-export default function Card({ text, isNew, icon }) {
+export default function Card({ text, isNew, icon, onPress }) {
   return (
-    <TouchableNativeFeedback>
+    <TouchableNativeFeedback onPress={onPress}>
       <View
         className="flex items-center justify-center bg-white w-40 h-28 rounded-md mt-5 mx-1 relative"
         style={styles.elevation}

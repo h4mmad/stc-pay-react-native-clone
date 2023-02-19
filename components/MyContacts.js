@@ -1,12 +1,47 @@
-import { View, Text, FlatList, VirtualizedList, TextInput } from "react-native";
+import {
+  View,
+  FlatList,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import * as Contacts from "expo-contacts";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import ContactCard from "./ContactCard";
+import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function MyContacts() {
   const [contactState, setContactState] = useState();
   const [filteredState, setFilteredState] = useState();
-  const [userInput, setUserInput] = useState([]);
+  const colorsObj = {
+    A: "coral",
+    B: "dodgerblue",
+    C: "darkcyan",
+    D: "dodgerblue",
+    E: "purple",
+    F: "dodgerblue",
+    G: "green",
+    H: "purple",
+    I: "orange",
+    J: "dodgerblue",
+    K: "darkseagreen",
+    L: "purple",
+    M: "orange",
+    N: "dodgerblue",
+    O: "green",
+    P: "purple",
+    Q: "orange",
+    R: "dodgerblue",
+    S: "green",
+    T: "purple",
+    U: "orange",
+    V: "blue",
+    W: "lightseagreen",
+    X: "purple",
+    Y: "orange",
+    Z: "dodgerblue",
+  };
 
   useEffect(() => {
     (async () => {
@@ -18,10 +53,8 @@ export default function MyContacts() {
         });
 
         if (data.length > 0) {
-          const contact = data;
           setContactState(data);
           setFilteredState(data);
-          console.log(contact[0]);
         }
       }
     })();
@@ -40,7 +73,6 @@ export default function MyContacts() {
   // if only name is present it returns only the first letter
   function getInitials(personName) {
     let initials;
-
     if (personName) {
       const nameArr = personName.split(" ");
 
@@ -57,33 +89,71 @@ export default function MyContacts() {
   }
 
   function filterByName(inputText) {
-    setUserInput(inputText);
-    let arr = [];
-    arr = contactState;
+    console.log(inputText);
+    let arr = contactState;
     setFilteredState(
       arr.filter((item, index) => {
         return item.name.toLowerCase().includes(inputText.toLowerCase());
       })
     );
-    console.log(filteredState);
+  }
+
+  function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
+    };
+  }
+
+  function checkColor(personName) {
+    let nameArr;
+    let firstLetter;
+
+    if (personName) {
+      nameArr = personName.split(" ");
+      firstLetter = nameArr[0][0].toUpperCase();
+
+      if (firstLetter in colorsObj) {
+        return colorsObj[firstLetter];
+      } else {
+        return "gray";
+      }
+    }
   }
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-slate-100">
       <View className="mt-12">
-        <TextInput
-          onChangeText={filterByName}
-          className="h-9 bg-gray-100 mx-6 rounded-md"
-          selectionColor="purple"
-        />
+        <View className="px-6">
+          <View
+            className="flex-row bg-gray-100 items-center rounded-md px-2"
+            style={styles.elevation}
+          >
+            <FontAwesome name="search" size={24} color="gray" />
+            <TextInput
+              onChangeText={debounce(filterByName)}
+              className="p-2 text-lg flex-1 h-12"
+              selectionColor="purple"
+              placeholder="Search by name"
+            />
+            <TouchableOpacity>
+              <Ionicons name="qr-code-outline" size={30} color="purple" />
+            </TouchableOpacity>
+          </View>
+        </View>
 
         <FlatList
+          contentContainerStyle={styles.flatList}
           data={filteredState}
           renderItem={({ item }) => (
             <ContactCard
               name={item.name}
               initials={getInitials(item.name)}
               number={checkNumberArray(item)}
+              propColor={checkColor(item.name)}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -92,3 +162,12 @@ export default function MyContacts() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  elevation: {
+    elevation: 5,
+  },
+  flatList: {
+    paddingBottom: 50,
+  },
+});
