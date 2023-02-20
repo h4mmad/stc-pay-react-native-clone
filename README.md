@@ -4,6 +4,7 @@
 - [x] Add transfer to contact header and a chevron to close the screen
 - [x] Adjust the HomeSliderNav so that each group appears alone
 - [ ] complete the add money modal
+- [ ] fix quick actions account screen
 
 # Learnings
 

@@ -9,15 +9,13 @@ import {
   MaterialIcons,
   Entypo,
 } from "@expo/vector-icons";
-import {
-  ScrollView,
-  View,
-  StyleSheet,
-  Dimensions,
-  LayoutAnimation,
-} from "react-native";
+import { ScrollView, View, StyleSheet, Dimensions } from "react-native";
 
-const dimensions = Dimensions.get("screen");
+import Modal from "react-native-modal";
+import { useState } from "react";
+import AddMoneyModal from "./AddMoneyModal";
+
+const dimensions = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexWrap: "wrap",
-    height: (dimensions.height * 3) / 4,
+    height: "100%",
   },
   individualContainer: {
     flexWrap: "wrap",
@@ -37,22 +35,27 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function GridMenu({ navigation }) {
+const GridMenu = ({ navigation }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
     <>
+      <AddMoneyModal isVisible={isVisible} setIsVisible={setIsVisible} />
+
       <ScrollView
         contentContainerStyle={styles.container}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         pagingEnabled={true}
-        onScroll={LayoutAnimation.spring()}
       >
         <View style={styles.individualContainer}>
           <Card
             text="Add money"
             icon={<FontAwesome name="money" size={32} color="purple" />}
             isNew={false}
-          ></Card>
+            onPress={() => setIsVisible(!isVisible)}
+          />
+
           <Card
             text="Transfer to contact"
             icon={<AntDesign name="contacts" size={32} color="purple" />}
@@ -134,4 +137,5 @@ export default function GridMenu({ navigation }) {
       </ScrollView>
     </>
   );
-}
+};
+export default GridMenu;
