@@ -11,9 +11,9 @@ import {
 } from "@expo/vector-icons";
 import { ScrollView, View, StyleSheet, Dimensions } from "react-native";
 
-import Modal from "react-native-modal";
 import { useState } from "react";
 import AddMoneyModal from "./AddMoneyModal";
+import EidiyaModal from "./EidiyaModal";
 
 const dimensions = Dimensions.get("window");
 
@@ -37,10 +37,15 @@ const styles = StyleSheet.create({
 
 const GridMenu = ({ navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleEidiyaModal, setIsVisibleEidiyaModal] = useState(false);
 
   return (
     <>
       <AddMoneyModal isVisible={isVisible} setIsVisible={setIsVisible} />
+      <EidiyaModal
+        isVisibleEidiyaModal={isVisibleEidiyaModal}
+        setIsVisibleEidiyaModal={setIsVisibleEidiyaModal}
+      />
 
       <ScrollView
         contentContainerStyle={styles.container}
@@ -53,7 +58,7 @@ const GridMenu = ({ navigation }) => {
             text="Add money"
             icon={<FontAwesome name="money" size={32} color="purple" />}
             isNew={false}
-            onPress={() => setIsVisible(!isVisible)}
+            onPress={() => setIsVisible(true)}
           />
 
           <Card
@@ -79,6 +84,7 @@ const GridMenu = ({ navigation }) => {
             icon={
               <Ionicons name="mail-open-outline" size={32} color="purple" />
             }
+            onPress={() => setIsVisibleEidiyaModal(true)}
             isNew={true}
           />
 

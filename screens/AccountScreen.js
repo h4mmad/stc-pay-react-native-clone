@@ -23,8 +23,6 @@ export default function AccountScreen() {
       elevation: 5,
       shadowColor: "#171717",
       flexDirection: "column",
-
-      height: dimensions.height / 2,
     },
     cardElevation: {
       elevation: 5,
@@ -41,7 +39,7 @@ export default function AccountScreen() {
         </View>
 
         <View
-          className="w-72 h-44 bg-purple-900  mt-10 rounded-lg mr-auto ml-auto relative"
+          className="w-72 h-40 bg-purple-900  mt-10 rounded-lg mr-auto ml-auto relative"
           style={styles.cardElevation}
         >
           <View className="absolute top-5 left-5 flex-row">
@@ -61,14 +59,14 @@ export default function AccountScreen() {
         </View>
 
         <View
-          className="bg-white w-100 rounded-md mt-10"
+          className="bg-white w-100 h-100 rounded-md mt-10 pb-2"
           style={styles.elevation}
         >
           <Text className="font-bold text-lg px-4 py-4 border-b-2 border-gray-100">
             Quick actions for this account
           </Text>
 
-          <View>
+          <View className="flex-row justify-center mt-4">
             <QuickActionsIcon
               icon={<FontAwesome name="money" size={24} color="purple" />}
               text="Add money"
@@ -85,6 +83,9 @@ export default function AccountScreen() {
               }
               text="Pay with QR"
             />
+          </View>
+
+          <View className="flex-row justify-center mt-4">
             <QuickActionsIcon
               icon={<AntDesign name="book" size={24} color="purple" />}
               text="My spendings"

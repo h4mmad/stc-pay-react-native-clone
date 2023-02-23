@@ -1,4 +1,3 @@
-import Modal from "react-native-modal";
 import {
   View,
   Text,
@@ -6,8 +5,12 @@ import {
   Button,
   useWindowDimensions,
   TouchableOpacity,
+  ScrollView,
+  Dimensions,
 } from "react-native";
 import { useState } from "react";
+
+import Modal from "react-native-modal";
 
 const HomeSlider = () => {
   const { width, height } = useWindowDimensions();
@@ -23,13 +26,12 @@ const HomeSlider = () => {
       width: width,
       height: 100,
     },
+    scrollStyle: {
+      backgroundColor: "blue",
+    },
   });
 
-  return (
-    <View className="w-50 h-100 bg-pink-200 overflow-hidden">
-      <Text>Hello</Text>
-    </View>
-  );
+  return <></>;
 };
 
 export default HomeSlider;

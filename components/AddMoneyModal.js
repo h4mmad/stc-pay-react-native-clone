@@ -24,13 +24,6 @@ const AddMoneyModal = ({ isVisible, setIsVisible }) => {
     modal: {
       margin: 0,
     },
-    backdrop: {
-      backgroundColor: "black",
-      width: width,
-      height: height,
-      flex: 1,
-      opacity: 0.5,
-    },
   });
 
   return (
@@ -40,13 +33,13 @@ const AddMoneyModal = ({ isVisible, setIsVisible }) => {
         style={styles.modal}
         isVisible={isVisible}
         hasBackdrop={true}
-        onBackdropPress={() => setIsVisible(false)}
+        onBackdropPress={() => setIsVisible(!isVisible)}
         backdropColor="black"
-        backdropOpacity={0.5}
+        backdropOpacity={0.7}
         swipeDirection={"down"}
         swipeThreshold={50}
         onSwipeComplete={() => {
-          setIsVisible(false);
+          setIsVisible(!isVisible);
         }}
       >
         <View style={styles.modalContent}>
@@ -72,10 +65,10 @@ const AddMoneyModal = ({ isVisible, setIsVisible }) => {
             </View>
 
             <TouchableOpacity
-              className="p-2 items-center"
+              className="items-center"
               onPress={() => setIsVisible(false)}
             >
-              <Entypo name="chevron-down" size={32} color="purple" />
+              <Text className="text-md text-gray-400">Dismiss</Text>
             </TouchableOpacity>
           </View>
         </View>
