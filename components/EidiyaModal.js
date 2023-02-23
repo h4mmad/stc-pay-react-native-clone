@@ -6,7 +6,6 @@ const EidiyaModal = ({ isVisibleEidiyaModal, setIsVisibleEidiyaModal }) => {
   const { height, width } = useWindowDimensions();
   const styles = StyleSheet.create({
     modalContent: {
-      backgroundColor: "white",
       position: "absolute",
       bottom: 0,
       width: width,
@@ -34,8 +33,8 @@ const EidiyaModal = ({ isVisibleEidiyaModal, setIsVisibleEidiyaModal }) => {
         setIsVisibleEidiyaModal(!isVisibleEidiyaModal);
       }}
     >
-      <View style={styles.modalContent}>
-        <View className="bg-gray-300 h-1 w-32 mx-auto rounded-full my-5"></View>
+      <View style={styles.modalContent} className="bg-white">
+        <View className="bg-gray-300 h-1 w-32 mx-auto rounded-full mb-5 mt-2"></View>
 
         <Text className="font-bold text-xl mx-4 mb-2">
           Select the Eidiya option:
