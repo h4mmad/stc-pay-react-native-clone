@@ -3,8 +3,10 @@
 - [x] Make transfer to contact button open without tabbar
 - [x] Add transfer to contact header and a chevron to close the screen
 - [x] Adjust the HomeSliderNav so that each group appears alone
-- [ ] complete the add money modal
-- [ ] fix quick actions account screen
+- [x] complete the add money modal
+- [x] fix quick actions account screen
+- [ ] animate the home bottom view so it slides up and down on swipe
+- [ ] learn to add gestures to the home bottom view, check docs on panResponder
 
 # Learnings
 
@@ -20,3 +22,7 @@
 - Learnt how to combine stack navigation with bottom tab navigation
 - Learnt how to have some screen with and without the bottom tab navigator
 - Implemented debouncing during contact search
+
+### Feb 23, 2023
+
+- Learnt that the bottom view on the homepage slides up, it's a view component that takes gestures and is animated
