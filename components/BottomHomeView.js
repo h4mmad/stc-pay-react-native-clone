@@ -1,40 +1,53 @@
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
-import { useState } from "react";
+import React, { useCallback, useRef, useMemo } from "react";
+import { StyleSheet, View, Text, Button } from "react-native";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 const BottomHomeView = () => {
-  const [y, setY] = useState(0);
-  const containerHeight = 500;
+  // hooks
+  const sheetRef = useRef(null);
 
-  const styles = StyleSheet.create({
-    view: {
-      height: containerHeight,
-      transform: [{ translateY: y }],
-    },
-  });
+  const snapPoints = useMemo(() => ["15%", "50%"], []);
 
   return (
-    <View className="bg-pink-300  left-100" style={styles.view}>
-      <Button
-        title="go up"
-        onPress={() => {
-          setY(y <= -190 ? y : y - 320);
-        }}
-      />
-      <Button
-        title="go down"
-        onPress={() => {
-          setY(y === -190 ? y + 200 : 10);
-        }}
-      />
-      <ScrollView>
-        {Array(40)
-          .fill(1)
-          .map((item, index) => (
-            <Text key={index}>{index}</Text>
-          ))}
-      </ScrollView>
-    </View>
+    <BottomSheet
+      ref={sheetRef}
+      index={1}
+      snapPoints={snapPoints}
+      style={{ backgroundColor: "red" }}
+      handleIndicatorStyle={styles.indicatorStyle}
+      handleStyle={styles.handleStyle}
+      enableOverDrag={false}
+    >
+      <BottomSheetScrollView
+        style={{ backgroundColor: "red" }}
+        showsVerticalScrollIndicator={false}
+      ></BottomSheetScrollView>
+    </BottomSheet>
   );
 };
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    backgroundColor: "red",
+  },
+  itemContainer: {
+    padding: 6,
+    margin: 6,
+    backgroundColor: "#eee",
+  },
+  indicatorStyle: {
+    backgroundColor: "white",
+    opacity: 1,
+    elevation: 5,
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    position: "absolute",
+    top: -20,
+  },
+  handleStyle: {
+    backgroundColor: "blue",
+  },
+});
 
 export default BottomHomeView;

@@ -5,8 +5,8 @@
 - [x] Adjust the HomeSliderNav so that each group appears alone
 - [x] complete the add money modal
 - [x] fix quick actions account screen
-- [ ] animate the home bottom view so it slides up and down on swipe
-- [ ] learn to add gestures to the home bottom view, check docs on panResponder
+- [ ] learn react-reanimated
+- [ ] learn react-native-gesture-handler
 
 # Learnings
 

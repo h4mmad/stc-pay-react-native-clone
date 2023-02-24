@@ -12,7 +12,7 @@ export default function HomeScreen({ navigation }) {
   const [visible, isVisible] = useState(false);
 
   return (
-    <View className="bg-slate-100 ">
+    <View className="bg-slate-100 flex-1">
       <HomeHeader />
       <Balance />
       <GridMenu navigation={navigation} />
