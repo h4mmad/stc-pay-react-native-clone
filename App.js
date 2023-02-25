@@ -2,32 +2,32 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "./screens/HomeScreen";
+import TestingCodeScreen from "./screens/TestingCodeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBar from "./components/TabBar";
 import CardScreen from "./screens/CardScreen";
 import AccountScreen from "./screens/AccountScreen";
 import MyContacts from "./components/MyContacts";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function ScreensWithTabNav() {
   return (
-    <>
-      <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
-        <Tab.Group
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Accounts" component={AccountScreen} />
-          <Tab.Screen name="Cards" component={CardScreen} />
-          <Tab.Screen name="Stores" component={CardScreen} />
-          <Tab.Screen name="More" component={CardScreen} />
-        </Tab.Group>
-      </Tab.Navigator>
-    </>
+    <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
+      <Tab.Group
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Accounts" component={AccountScreen} />
+        <Tab.Screen name="Cards" component={CardScreen} />
+        <Tab.Screen name="Stores" component={CardScreen} />
+        <Tab.Screen name="More" component={CardScreen} />
+      </Tab.Group>
+    </Tab.Navigator>
   );
 }
 

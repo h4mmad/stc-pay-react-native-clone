@@ -7,6 +7,7 @@
 - [x] fix quick actions account screen
 - [ ] learn react-reanimated
 - [ ] learn react-native-gesture-handler
+- [x] rename BottomHomeView to Bottom Sheet
 
 # Learnings
 
@@ -26,3 +27,7 @@
 ### Feb 23, 2023
 
 - Learnt that the bottom view on the homepage slides up, it's a view component that takes gestures and is animated
+
+### Feb 25. 2023
+
+- Learnt about BottomSheet, and how using scroll view from React-Native-Gesture-Handler solves the problem of nested scrollView within the BottomSheet
