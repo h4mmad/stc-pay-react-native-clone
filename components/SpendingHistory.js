@@ -29,7 +29,7 @@ const Item = ({ icon, heading, subHeading }) => {
 
 const SpendingHistory = () => {
   return (
-    <View className="mx-4 mt-12 rounded-md mb-12" style={styles.cardElevation}>
+    <View className="mx-6 mt-12 rounded-md mb-12" style={styles.cardElevation}>
       <View className="flex-row justify-between items-center  border-b-2 border-gray-100">
         <Text className="font-bold text-lg m-2">Spending history</Text>
       </View>

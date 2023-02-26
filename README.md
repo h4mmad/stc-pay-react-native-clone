@@ -8,6 +8,7 @@
 - [ ] learn react-reanimated
 - [ ] learn react-native-gesture-handler
 - [x] rename BottomHomeView to Bottom Sheet
+- [x] animate bottom sheet chevron
 
 # Learnings
 
@@ -31,3 +32,8 @@
 ### Feb 25. 2023
 
 - Learnt about BottomSheet, and how using scroll view from React-Native-Gesture-Handler solves the problem of nested scrollView within the BottomSheet
+
+### Feb 26, 2023
+
+- Finally animates the bottom sheet arrow using RN Reanimated library that runs animations on the UI thread, (better than JS thread).
+- Asynchronous is good but suffers when something synchronous occurs such as scrolling while fetching data and animations when you want that instant and snappy feel.
