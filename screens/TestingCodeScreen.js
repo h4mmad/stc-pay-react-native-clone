@@ -1,68 +1,116 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { GestureDetector, Gesture } from "react-native-gesture-handler";
+import React, { useEffect } from "react";
+import { StyleSheet, Dimensions, View } from "react-native";
+import {
+  GestureDetector,
+  Gesture,
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
+
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
+import { useSafeAreaFrame } from "react-native-safe-area-context";
 
-function Ball() {
-  const isPressed = useSharedValue(false);
-  const offset = useSharedValue({ x: 0, y: 0 });
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-  const animatedStyles = useAnimatedStyle(() => {
+const MIN_TRANSLATE_Y = -SCREEN_HEIGHT / 5;
+const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 100;
+const INDICATOR_SIZE = 62;
+
+const styles = StyleSheet.create({
+  bottomSheet: {
+    width: "100%",
+    height: SCREEN_HEIGHT,
+    top: SCREEN_HEIGHT,
+    backgroundColor: "white",
+    position: "relative",
+  },
+  bottomSheetIndicator: {
+    backgroundColor: "white",
+    elevation: 5,
+    width: INDICATOR_SIZE,
+    height: INDICATOR_SIZE,
+    borderRadius: 100,
+    alignSelf: "center",
+    top: -INDICATOR_SIZE / 2,
+    position: "absolute",
+  },
+});
+
+const TestingCodeScreen = () => {
+  const translationY = useSharedValue(0);
+  const context = useSharedValue(0);
+  const borderRadius = useSharedValue(25);
+
+  const gesture = Gesture.Pan()
+    .onStart(() => {
+      context.value = translationY.value;
+    })
+    .onUpdate((event) => {
+      if (event.translationY + context.value < MIN_TRANSLATE_Y) {
+        translationY.value = event.translationY + context.value;
+        translationY.value = Math.max(MAX_TRANSLATE_Y, translationY.value);
+      }
+      console.log(translationY.value);
+    })
+    .onEnd((event) => {
+      if (translationY.value > MAX_TRANSLATE_Y && event.velocityY > 0) {
+        translationY.value = withSpring(MIN_TRANSLATE_Y, {
+          damping: 30,
+        });
+      } else {
+        translationY.value = withSpring(MAX_TRANSLATE_Y, {
+          damping: 30,
+        });
+      }
+
+      if (translationY.value < MIN_TRANSLATE_Y && event.velocityY - 30 < 0) {
+        console.log(MIN_TRANSLATE_Y - 200);
+        translationY.value = withSpring(MAX_TRANSLATE_Y, { damping: 30 });
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => {
     return {
+      borderRadius: borderRadius.value,
       transform: [
-        { translateX: offset.value.x },
-        { translateY: offset.value.y },
-        { scale: withSpring(isPressed.value ? 1.2 : 1) },
+        {
+          translateY: translationY.value,
+        },
       ],
-      backgroundColor: isPressed.value ? "yellow" : "blue",
     };
   });
 
-  const gesture = Gesture.Pan()
-    .onBegin(() => {
-      "worklet";
-      isPressed.value = true;
-    })
-    .onChange((e) => {
-      "worklet";
-      offset.value = {
-        x: e.changeX + offset.value.x,
-        y: e.changeY + offset.value.y,
-      };
-    })
-    .onFinalize(() => {
-      "worklet";
-      isPressed.value = false;
-    });
+  useEffect(() => {
+    translationY.value = withSpring(MIN_TRANSLATE_Y, { damping: 30 });
+  }, []);
 
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View style={[styles.ball, animatedStyles]} />
-    </GestureDetector>
-  );
-}
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureDetector gesture={gesture}>
+        <Animated.View style={[styles.bottomSheet, animatedStyle]}>
+          <Animated.View style={[styles.bottomSheetIndicator]} />
 
-export default function TestingCodeScreen() {
-  return (
-    <View style={styles.container}>
-      <Ball />
-    </View>
+          <Animated.ScrollView disableScrollViewPanResponder>
+            {Array(40)
+              .fill(0)
+              .map((item, index) => {
+                return (
+                  <Animated.View
+                    className="w-12 h-12 bg-red-600 m-5"
+                    key={index}
+                  />
+                );
+              })}
+          </Animated.ScrollView>
+        </Animated.View>
+      </GestureDetector>
+    </GestureHandlerRootView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  ball: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
-    backgroundColor: "blue",
-    alignSelf: "center",
-  },
-});
+export default TestingCodeScreen;

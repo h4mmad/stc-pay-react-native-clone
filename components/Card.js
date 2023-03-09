@@ -3,17 +3,29 @@ import {
   Text,
   TouchableNativeFeedback,
   StyleSheet,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 
-const dimensions = Dimensions.get("screen");
-
 export default function Card({ text, isNew, icon, onPress }) {
+  const { width, height, fontScale, scale } = useWindowDimensions();
+  console.log(scale);
+
+  const styles = StyleSheet.create({
+    card: {
+      elevation: 5,
+      shadowColor: "#171717",
+      height: 40 * scale,
+      width: width * 0.4,
+      // height: 100,
+      // width: 120,
+    },
+  });
+
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View
-        className="flex items-center justify-center bg-white h-28 w-40 m-2 rounded-md relative"
-        style={styles.elevation}
+        className="flex items-center justify-center bg-white  m-2 rounded-md relative"
+        style={styles.card}
       >
         <View className="items-center w-3/4">
           {icon}
@@ -28,10 +40,3 @@ export default function Card({ text, isNew, icon, onPress }) {
     </TouchableNativeFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  elevation: {
-    elevation: 5,
-    shadowColor: "#171717",
-  },
-});

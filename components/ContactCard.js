@@ -1,7 +1,14 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import { memo } from "react";
 
 const ContactCard = ({ name, initials, number, propColor }) => {
+  const { width, height, fontScale, scale } = useWindowDimensions();
   const styles = StyleSheet.create({
     cardElevation: {
       elevation: 5,
@@ -13,7 +20,7 @@ const ContactCard = ({ name, initials, number, propColor }) => {
 
   return (
     <View
-      className="flex-row w-100 h-100 p-3 my-3 mx-6 rounded-md bg-white"
+      className="flex-row p-3 my-3 mx-6 rounded-md bg-white"
       style={styles.cardElevation}
     >
       <View

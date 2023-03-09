@@ -4,18 +4,16 @@ import Balance from "../components/Balance";
 import HomeHeader from "../components/HomeHeader";
 import GridMenu from "../components/GridMenu";
 import HomeSlider from "../components/HomeSlider";
-import { useState } from "react";
 import HomeBottomSheet from "../components/HomeBottomSheet";
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View className="bg-slate-100 flex-1">
+    <View className="flex-1" style={{ backgroundColor: "#F8F8F8" }}>
       <HomeHeader />
       <Balance />
       <GridMenu navigation={navigation} />
       <HomeSlider />
       <HomeBottomSheet />
-
       <StatusBar />
     </View>
   );

@@ -8,35 +8,95 @@ import {
   FontAwesome5,
   MaterialIcons,
   Entypo,
+  Feather,
 } from "@expo/vector-icons";
-import { ScrollView, View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 
 import { useState } from "react";
 import AddMoneyModal from "./AddMoneyModal";
 import EidiyaModal from "./EidiyaModal";
-
-const dimensions = Dimensions.get("window");
-
-const styles = StyleSheet.create({
-  container: {
-    paddingBottom: 5,
-    paddingTop: 5,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    flexWrap: "wrap",
-  },
-  individualContainer: {
-    flexWrap: "wrap",
-    flexDirection: "row",
-    width: dimensions.width,
-    justifyContent: "center",
-  },
-});
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
+import { customColors } from "../customColors";
 
 const GridMenu = ({ navigation }) => {
+  const { width, height, fontScale, scale } = useWindowDimensions();
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      flexWrap: "wrap",
+    },
+    individualContainer: {
+      flexWrap: "wrap",
+      flexDirection: "row",
+      width,
+      justifyContent: "center",
+    },
+  });
+
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleEidiyaModal, setIsVisibleEidiyaModal] = useState(false);
+  const translateX = useSharedValue(0);
+  const index = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    if (event.contentOffset.x % width === 0) {
+      index.value = event.contentOffset.x / width;
+    }
+    console.log(event.contentOffset.x);
+    translateX.value = event.contentOffset.x;
+  });
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const interpolatedScale = interpolate(
+      translateX.value,
+      [
+        width * (index.value - 1),
+        width * index.value,
+        width * (index.value + 1),
+      ],
+      [0.9, 1, 0.9],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      transform: [
+        {
+          scale: withSpring(interpolatedScale, {
+            damping: 30,
+            mass: 0.5,
+          }),
+        },
+      ],
+    };
+  });
+
+  const indicatorStyle = useAnimatedStyle(() => {
+    const interPolateX = interpolate(
+      translateX.value,
+      [0, 384],
+      [0, 16],
+      Extrapolate.CLAMP
+    );
+
+    return {
+      transform: [
+        {
+          translateX: interPolateX,
+        },
+      ],
+    };
+  });
 
   return (
     <>
@@ -46,7 +106,8 @@ const GridMenu = ({ navigation }) => {
         setIsVisibleEidiyaModal={setIsVisibleEidiyaModal}
       />
       <View>
-        <ScrollView
+        <Animated.ScrollView
+          onScroll={scrollHandler}
           contentContainerStyle={styles.container}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -55,14 +116,18 @@ const GridMenu = ({ navigation }) => {
           <View style={styles.individualContainer}>
             <Card
               text="Add money"
-              icon={<FontAwesome name="money" size={32} color="purple" />}
+              icon={
+                <Feather name="plus" size={32} color={customColors.stcMain} />
+              }
               isNew={false}
               onPress={() => setIsVisible(true)}
             />
 
             <Card
               text="Transfer to contact"
-              icon={<AntDesign name="contacts" size={32} color="purple" />}
+              icon={
+                <Feather name="user" size={32} color={customColors.stcMain} />
+              }
               isNew={false}
               onPress={() => navigation.navigate("Transfer to contact")}
             />
@@ -73,79 +138,113 @@ const GridMenu = ({ navigation }) => {
                 <MaterialCommunityIcons
                   name="office-building-outline"
                   size={32}
-                  color="purple"
+                  color={customColors.stcMain}
                 />
               }
-              isNew={true}
-            />
-            <Card
-              text="Eidiya"
-              icon={
-                <Ionicons name="mail-open-outline" size={32} color="purple" />
-              }
-              onPress={() => setIsVisibleEidiyaModal(true)}
               isNew={true}
             />
 
             <Card
               text="Qattah (money split)"
-              icon={<AntDesign name="book" size={32} color="purple" />}
+              icon={
+                <Feather
+                  name="columns"
+                  size={32}
+                  color={customColors.stcMain}
+                />
+              }
               isNew={false}
             />
             <Card
               text="International transfer"
-              icon={<Fontisto name="world-o" size={32} color="purple" />}
+              icon={
+                <Feather name="globe" size={32} color={customColors.stcMain} />
+              }
               isNew={false}
             />
-          </View>
-
-          <View style={styles.individualContainer}>
             <Card
               text="Local bank transfer"
               icon={
                 <MaterialCommunityIcons
                   name="bank-outline"
                   size={32}
-                  color="purple"
+                  color={customColors.stcMain}
                 />
               }
               isNew={false}
             ></Card>
+          </View>
+
+          <View style={styles.individualContainer}>
             <Card
               text="stc bills & sawa"
               icon={
-                <FontAwesome5 name="file-invoice" size={32} color="purple" />
+                <FontAwesome5
+                  name="file-invoice"
+                  size={32}
+                  color={customColors.stcMain}
+                />
               }
               isNew={false}
             />
 
             <Card
               text="Musaned salary payments"
-              icon={<MaterialIcons name="payment" size={32} color="purple" />}
+              icon={
+                <MaterialIcons
+                  name="payment"
+                  size={32}
+                  color={customColors.stcMain}
+                />
+              }
               isNew={false}
             />
             <Card
               text="Request money"
               icon={
-                <FontAwesome5 name="hand-holding" size={32} color="purple" />
+                <FontAwesome5
+                  name="hand-holding"
+                  size={32}
+                  color={customColors.stcMain}
+                />
               }
               isNew={false}
             />
 
             <Card
               text="Business payments"
-              icon={<Entypo name="suitcase" size={32} color="purple" />}
+              icon={
+                <Entypo
+                  name="suitcase"
+                  size={32}
+                  color={customColors.stcMain}
+                />
+              }
               isNew={false}
             />
             <Card
               text="QR scanner"
               icon={
-                <Ionicons name="qr-code-outline" size={32} color="purple" />
+                <Ionicons
+                  name="qr-code-outline"
+                  size={32}
+                  color={customColors.stcMain}
+                />
               }
               isNew={false}
             />
           </View>
-        </ScrollView>
+        </Animated.ScrollView>
+      </View>
+      <View className="flex-row  justify-center mt-3">
+        <View className="flex-row">
+          <Animated.View
+            className="w-2 h-2 rounded-full absolute left-0 m-1"
+            style={[{ backgroundColor: customColors.stcMain }, indicatorStyle]}
+          ></Animated.View>
+          <View className="w-2 h-2 rounded-full bg-gray-300 m-1 -z-10"></View>
+          <View className="w-2 h-2 rounded-full bg-gray-300 m-1 -z-10"></View>
+        </View>
       </View>
     </>
   );

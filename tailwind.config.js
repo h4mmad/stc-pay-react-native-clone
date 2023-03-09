@@ -17,11 +17,6 @@ module.exports = {
       "stc-main": "#4F008C",
     },
   },
-  safelist: [
-    {
-      pattern:
-        /(bg|text|border)-stc-(green|orange|yellow|light-blue|light-purple|black|main)/,
-    },
-  ],
+
   plugins: [],
 };

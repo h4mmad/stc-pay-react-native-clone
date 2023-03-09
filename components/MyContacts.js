@@ -2,18 +2,22 @@ import {
   View,
   FlatList,
   TextInput,
+  Text,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import * as Contacts from "expo-contacts";
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import ContactCard from "./ContactCard";
 import { FontAwesome } from "@expo/vector-icons";
+import Animated from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function MyContacts() {
   const [contactState, setContactState] = useState();
   const [filteredState, setFilteredState] = useState();
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
   const colorsObj = {
     A: "coral",
     B: "dodgerblue",
@@ -68,9 +72,6 @@ export default function MyContacts() {
     }
   }
 
-  // this funtion takes in the person's name
-  // and return the first letter of the first and last name
-  // if only name is present it returns only the first letter
   function getInitials(personName) {
     let initials;
     if (personName) {
@@ -124,6 +125,18 @@ export default function MyContacts() {
     }
   }
 
+  const renderItem = useCallback(({ item }) => {
+    return (
+      <ContactCard
+        name={item.name}
+        initials={getInitials(item.name)}
+        number={checkNumberArray(item)}
+        propColor={checkColor(item.name)}
+      />
+    );
+  }, []);
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
+
   return (
     <View className="flex-1 bg-slate-100">
       <View className="mt-12">
@@ -148,15 +161,8 @@ export default function MyContacts() {
         <FlatList
           contentContainerStyle={styles.flatList}
           data={filteredState}
-          renderItem={({ item }) => (
-            <ContactCard
-              name={item.name}
-              initials={getInitials(item.name)}
-              number={checkNumberArray(item)}
-              propColor={checkColor(item.name)}
-            />
-          )}
-          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
         />
       </View>
     </View>

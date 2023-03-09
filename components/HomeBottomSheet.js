@@ -1,16 +1,7 @@
-import React, {
-  useCallback,
-  useRef,
-  useMemo,
-  useState,
-  useEffect,
-} from "react";
-import { StyleSheet, View, Pressable } from "react-native";
-import BottomSheet, {
-  BottomSheetScrollView,
-  useBottomSheet,
-} from "@gorhom/bottom-sheet";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import React, { useRef, useMemo, useState } from "react";
+import { StyleSheet, Pressable, useWindowDimensions } from "react-native";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { customColors } from "../customColors";
 import SpendingAnalytics from "./SpendingAnalytics";
@@ -22,6 +13,25 @@ import Animated, {
 } from "react-native-reanimated";
 
 const HomeBottomSheet = () => {
+  const { width, height, fontScale, scale } = useWindowDimensions();
+
+  const styles = StyleSheet.create({
+    contentContainer: {
+      backgroundColor: "white",
+      paddingBottom: 10,
+    },
+    indicator: {
+      backgroundColor: "white",
+      elevation: 5,
+      height: 22 * scale,
+      width: 22 * scale,
+    },
+    indicatorView: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });
   const bottomSheetRef = useRef();
 
   const snapPoints = useMemo(() => ["20%", "90%"], []);
@@ -49,7 +59,7 @@ const HomeBottomSheet = () => {
     return (
       <Pressable
         onPress={handlePress}
-        className="w-16 h-16 rounded-full mx-auto top-1/2"
+        className="rounded-full mx-auto top-1/2"
         style={[styles.indicator]}
       >
         <Animated.View style={[styles.indicatorView, animatedStyle]}>
@@ -74,19 +84,19 @@ const HomeBottomSheet = () => {
       backgroundComponent={BackgroundComponent}
       onAnimate={(fromIndex, toIndex) => {
         if (toIndex === 1) {
-          rotation.value = withTiming(180, 3000);
+          rotation.value = withTiming(180, { duration: 300 });
         } else {
-          rotation.value = withTiming(0, 3000);
+          rotation.value = withTiming(0, { duration: 300 });
         }
       }}
       onChange={(index) => {
         setBottomSheetPosition(index);
 
         if (index === 0) {
-          rotation.value = withTiming(0, 3000);
+          rotation.value = withTiming(0, { duration: 300 });
         }
         if (index === 1) {
-          rotation.value = withTiming(180, 3000);
+          rotation.value = withTiming(180, { duration: 300 });
         }
       }}
     >
@@ -111,21 +121,5 @@ const HomeBottomSheet = () => {
     </BottomSheet>
   );
 };
-
-const styles = StyleSheet.create({
-  contentContainer: {
-    backgroundColor: "white",
-    paddingBottom: 10,
-  },
-  indicator: {
-    backgroundColor: "white",
-    elevation: 5,
-  },
-  indicatorView: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default HomeBottomSheet;

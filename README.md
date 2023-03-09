@@ -9,6 +9,9 @@
 - [ ] learn react-native-gesture-handler
 - [x] rename BottomHomeView to Bottom Sheet
 - [x] animate bottom sheet chevron
+- [ ] Learn to interpolate using Reanimated
+- [ ] Make menu grid responsive to device width
+- [x] Make custom bottom sheet
 
 # Learnings
 
@@ -37,3 +40,22 @@
 
 - Finally animates the bottom sheet arrow using RN Reanimated library that runs animations on the UI thread, (better than JS thread).
 - Asynchronous is good but suffers when something synchronous occurs such as scrolling while fetching data and animations when you want that instant and snappy feel.
+
+### Feb 28, 2023
+
+- On Android the when using the Dimension's API of react native, using Dimensions.get('window') gives us the density independent width and height(excluding the soft navbar), Dimensions.get('screen') gives us the density independent width and height(including the soft navbar). To get the screen resolution or number of pixels, multiply the dp width and height by the scale factor.
+
+The phone I'm using for development is the Samsung Galaxy A52s (1080 x 2400 pixels is the screen resolution),
+this is what I got when used the Dimensions API:
+
+```
+ LOG  window dimensions on android are:  {"fontScale": 0.8999999761581421, "height": 774.0444444444445, "scale": 2.8125, "width": 384}
+ LOG  screen dimensions on android are:  {"fontScale": 0.8999999761581421, "height": 853.3333333333334, "scale": 2.8125, "width": 384}
+```
+
+Notice the difference in height, also when you multiply the screen width and height by the scale factor, you get:
+
+```
+384 * 2.8125 = 1080
+853.333 * 2.8125 = ~2400
+```

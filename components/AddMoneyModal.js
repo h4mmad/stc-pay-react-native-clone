@@ -34,6 +34,7 @@ const AddMoneyModal = ({ isVisible, setIsVisible }) => {
         isVisible={isVisible}
         hasBackdrop={true}
         onBackdropPress={() => setIsVisible(!isVisible)}
+        onBackButtonPress={() => setIsVisible(!isVisible)}
         backdropColor="black"
         backdropOpacity={0.7}
         swipeDirection={"down"}

@@ -9,6 +9,12 @@ import CardScreen from "./screens/CardScreen";
 import AccountScreen from "./screens/AccountScreen";
 import MyContacts from "./components/MyContacts";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  useWindowDimensions,
+  PixelRatio,
+  Dimensions,
+  Platform,
+} from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -31,7 +37,12 @@ function ScreensWithTabNav() {
   );
 }
 
+const screenDimensions = Dimensions.get("screen");
 export default function App() {
+  const windowDimensions = useWindowDimensions();
+  console.log(`window dimensions on ${Platform.OS} are: `, windowDimensions);
+  console.log(`screen dimensions on ${Platform.OS} are: `, screenDimensions);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

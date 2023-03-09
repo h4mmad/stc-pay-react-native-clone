@@ -1,4 +1,4 @@
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { AntDesign, Feather, MaterialIcons } from "@expo/vector-icons";
 
 export default function TabBar({ state, descriptors, navigation }) {
