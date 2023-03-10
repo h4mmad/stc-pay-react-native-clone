@@ -25,7 +25,7 @@ const Item = ({ icon, heading }) => {
       <View className="bg-gray-100 rounded-full p-3">{icon}</View>
 
       <View className="flex-1 m-2">
-        <Text className="font-bold text-lg">{heading}</Text>
+        <Text className="font-bold text-md">{heading}</Text>
         <Text style={styles.text}>Set a budget</Text>
       </View>
 

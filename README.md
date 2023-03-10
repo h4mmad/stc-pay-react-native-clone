@@ -12,7 +12,7 @@
 - [ ] Learn to interpolate using Reanimated
 - [ ] Make menu grid responsive to device width
 - [x] Make custom bottom sheet
-- [ ] Make Spending analytics navigation
+- [x] Make Spending analytics navigation
 
 # Learnings
 
