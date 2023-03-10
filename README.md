@@ -14,7 +14,7 @@
 - [x] Make custom bottom sheet
 - [x] Make Spending analytics navigation
 
-# Learnings
+# Learnings,
 
 ### Feb 18, 2023
 
