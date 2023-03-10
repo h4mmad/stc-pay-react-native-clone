@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { AntDesign, Feather, MaterialIcons } from "@expo/vector-icons";
+import { customColors } from "../customColors";
 
 export default function TabBar({ state, descriptors, navigation }) {
   return (
@@ -37,46 +38,63 @@ export default function TabBar({ state, descriptors, navigation }) {
 
         let icon;
         const iconSize = 20;
-        if (route.name === "Home") {
-          icon = (
-            <AntDesign
-              name="appstore-o"
-              size={iconSize}
-              color={isFocused ? "purple" : "gray"}
-            />
-          );
-        } else if (route.name === "Cards") {
-          icon = (
-            <AntDesign
-              name="creditcard"
-              size={iconSize}
-              color={isFocused ? "purple" : "gray"}
-            />
-          );
-        } else if (route.name === "Accounts") {
-          icon = (
-            <AntDesign
-              name="wallet"
-              size={iconSize}
-              color={isFocused ? "purple" : "gray"}
-            />
-          );
-        } else if (route.name === "Stores") {
-          icon = (
-            <MaterialIcons
-              name="storefront"
-              size={iconSize}
-              color={isFocused ? "purple" : "gray"}
-            />
-          );
-        } else if (route.name === "More") {
-          icon = (
-            <Feather
-              name="more-horizontal"
-              size={iconSize}
-              color={isFocused ? "purple" : "gray"}
-            />
-          );
+        switch (route.name) {
+          case "Home":
+            {
+              icon = (
+                <Feather
+                  name="grid"
+                  size={iconSize}
+                  color={isFocused ? customColors.stcMain : "gray"}
+                />
+              );
+            }
+            break;
+
+          case "Cards":
+            {
+              icon = (
+                <Feather
+                  name="credit-card"
+                  size={iconSize}
+                  color={isFocused ? customColors.stcMain : "gray"}
+                />
+              );
+            }
+            break;
+
+          case "Accounts": {
+            icon = (
+              <Feather
+                name="user"
+                size={iconSize}
+                color={isFocused ? customColors.stcMain : "gray"}
+              />
+            );
+            break;
+          }
+          case "Stores":
+            {
+              icon = (
+                <Feather
+                  name="shopping-cart"
+                  size={iconSize}
+                  color={isFocused ? customColors.stcMain : "gray"}
+                />
+              );
+            }
+            break;
+          case "More":
+            {
+              icon = (
+                <Feather
+                  name="more-horizontal"
+                  size={iconSize}
+                  color={isFocused ? "purple" : "gray"}
+                />
+              );
+            }
+            break;
         }
 
         return (
@@ -89,8 +107,8 @@ export default function TabBar({ state, descriptors, navigation }) {
           >
             {icon}
             <Text
-              className="pt-1"
-              style={{ color: isFocused ? "purple" : "#222" }}
+              className="pt-1 text-xs"
+              style={{ color: isFocused ? customColors.stcMain : "#666" }}
             >
               {label}
             </Text>

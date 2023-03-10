@@ -147,11 +147,7 @@ const GridMenu = ({ navigation }) => {
             <Card
               text="Qattah (money split)"
               icon={
-                <Feather
-                  name="columns"
-                  size={32}
-                  color={customColors.stcMain}
-                />
+                <Feather name="divide" size={32} color={customColors.stcMain} />
               }
               isNew={false}
             />
@@ -179,8 +175,8 @@ const GridMenu = ({ navigation }) => {
             <Card
               text="stc bills & sawa"
               icon={
-                <FontAwesome5
-                  name="file-invoice"
+                <Feather
+                  name="file-text"
                   size={32}
                   color={customColors.stcMain}
                 />
@@ -191,8 +187,8 @@ const GridMenu = ({ navigation }) => {
             <Card
               text="Musaned salary payments"
               icon={
-                <MaterialIcons
-                  name="payment"
+                <Feather
+                  name="credit-card"
                   size={32}
                   color={customColors.stcMain}
                 />
@@ -202,8 +198,8 @@ const GridMenu = ({ navigation }) => {
             <Card
               text="Request money"
               icon={
-                <FontAwesome5
-                  name="hand-holding"
+                <Feather
+                  name="arrow-down"
                   size={32}
                   color={customColors.stcMain}
                 />
@@ -214,8 +210,8 @@ const GridMenu = ({ navigation }) => {
             <Card
               text="Business payments"
               icon={
-                <Entypo
-                  name="suitcase"
+                <Feather
+                  name="briefcase"
                   size={32}
                   color={customColors.stcMain}
                 />

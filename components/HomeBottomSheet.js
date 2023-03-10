@@ -4,7 +4,7 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { ScrollView } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { customColors } from "../customColors";
-import SpendingAnalytics from "./SpendingAnalytics";
+import SpendingAnalytics from "./spending_analytics/SpendingAnalytics";
 import SpendingHistory from "./SpendingHistory";
 import Animated, {
   useAnimatedStyle,
